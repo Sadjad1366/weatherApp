@@ -1,5 +1,6 @@
 import { useEffect } from "react"
 import Navbar from "./navbar"
+import WeatherInfo from "./weatherInfo"
 
 const HomePage:React.FC = () => {
   useEffect(()=>{
@@ -9,6 +10,7 @@ const HomePage:React.FC = () => {
   return (
     <div>
 <Navbar/>
+< WeatherInfo/>
     </div>
   )
 }

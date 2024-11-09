@@ -1,5 +1,6 @@
 import axios from "axios";
 import { IWeatherLocation } from "../types/weatherLocationType";
+import { IWeatherInfo } from "../types/weatherInfoType";
 
 export const fetchWeatherLocation = async (country: string) => {
   try {
@@ -23,3 +24,23 @@ export const fetchWeatherLocation = async (country: string) => {
     console.error("Error fetching location:", error);
   }
 };
+
+export const fetchCurrentWeatherInfo = async(lat:number,lon:number) =>{
+  try {
+ const response = await axios.get<IWeatherInfo>(
+  "https://api.openweathermap.org/data/2.5/weather",
+  {
+    params:{
+      lat: lat,
+      lon: lon,
+      appid:"bf8f78c1af50244ad0a12d328e6c359c",
+    }
+  }
+ )
+ console.log(response.data);
+return response.data
+  } catch (error) {
+   console.log("weather info error", error);
+
+  }
+}
