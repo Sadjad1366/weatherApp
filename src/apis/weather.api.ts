@@ -2,6 +2,7 @@ import axios from "axios";
 import { IWeatherLocation } from "../types/weatherLocationType";
 import { IWeatherInfo } from "../types/weatherInfoType";
 
+
 export const fetchWeatherLocation = async (country: string) => {
   try {
     const response = await axios.get<IWeatherLocation>(
@@ -37,7 +38,7 @@ export const fetchCurrentWeatherInfo = async(lat:number,lon:number) =>{
     }
   }
  )
- console.log(response.data);
+//  console.log(response.data);
 return response.data
   } catch (error) {
    console.log("weather info error", error);

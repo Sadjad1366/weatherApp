@@ -1,16 +1,14 @@
 import { useQuery } from "react-query";
 import { fetchWeatherLocation } from "../apis/weather.api";
-import { ReactNode, useState } from "react";
-import WeatherInfo from "./weatherInfo";
+import { ReactNode } from "react";
 
 interface WeatherLocationProps {
   country: string;
+  onLatLonChange: (lat: number, lon: number) => void;
 }
 
-const WeatherLocation: React.FC<WeatherLocationProps> = ({ country }) => {
-  const [latLon, setLatLon] = useState<{ lat: number; lon: number } | null>(null);
-
-  const { isLoading, isError, data, error } = useQuery({
+const WeatherLocation: React.FC<WeatherLocationProps> = ({ country, onLatLonChange }) => {
+  const { isLoading, isError, error } = useQuery({
     queryKey: ["weather", country],
     queryFn: async () => {
       return await fetchWeatherLocation(country);
@@ -18,7 +16,7 @@ const WeatherLocation: React.FC<WeatherLocationProps> = ({ country }) => {
     enabled: !!country,
     onSuccess: (data) => {
       if (data) {
-        setLatLon({ lat: data.lat, lon: data.lng });
+        onLatLonChange(data.lat, data.lng);
       }
     },
   });
@@ -26,11 +24,7 @@ const WeatherLocation: React.FC<WeatherLocationProps> = ({ country }) => {
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Something is wrong {error as ReactNode}</p>;
 
-  return (
-    <div>
-      {latLon && <WeatherInfo lat={latLon.lat} lon={latLon.lon} />}
-    </div>
-  );
+  return null;
 };
 
 export default WeatherLocation;
