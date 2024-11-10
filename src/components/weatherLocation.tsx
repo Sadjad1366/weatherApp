@@ -8,7 +8,9 @@ interface WeatherLocationProps {
 }
 
 const WeatherLocation: React.FC<WeatherLocationProps> = ({ country, onLatLonChange }) => {
-  const { isLoading, isError, error } = useQuery({
+  const {
+    // isLoading,
+     isError, error } = useQuery({
     queryKey: ["weather", country],
     queryFn: async () => {
       return await fetchWeatherLocation(country);
@@ -17,11 +19,12 @@ const WeatherLocation: React.FC<WeatherLocationProps> = ({ country, onLatLonChan
     onSuccess: (data) => {
       if (data) {
         onLatLonChange(data.lat, data.lng);
+
       }
     },
   });
 
-  if (isLoading) return <p>Loading...</p>;
+  // if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Something is wrong {error as ReactNode}</p>;
 
   return null;

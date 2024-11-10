@@ -8,7 +8,7 @@ import { CiLocationOn } from "react-icons/ci";
 const Map: React.FC = () => {
   const [weatherData, setWeatherData] = useState<IWeatherInfo | null>(null);
 
-  const handleMapClick = async (lat: number, lon: number) => {
+  const getClickedLocationInfo = async (lat: number, lon: number) => {
     try {
       const data = await fetchCurrentWeatherInfo(lat, lon);
       setWeatherData(data || null);
@@ -21,7 +21,7 @@ const Map: React.FC = () => {
   const MapClickHandler = () => {
     useMapEvents({
       click: (event) => {
-        handleMapClick(event.latlng.lat, event.latlng.lng);
+        getClickedLocationInfo(event.latlng.lat, event.latlng.lng);
       },
     });
     return null;
